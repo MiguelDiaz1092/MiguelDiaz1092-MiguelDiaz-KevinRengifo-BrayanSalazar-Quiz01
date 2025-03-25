@@ -65,8 +65,7 @@ public class LoginFrame extends JFrame {
         btnLogin.addActionListener(this::onLoginClicked);
         panel.add(btnLogin, gbc);
         
-        // Por defecto, el usuario es "admin" (quemado en el sistema)
-        txtUsername.setText("admin");
+       
         
         add(panel);
     }
