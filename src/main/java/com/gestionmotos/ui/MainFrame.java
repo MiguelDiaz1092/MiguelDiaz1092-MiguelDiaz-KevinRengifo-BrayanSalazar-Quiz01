@@ -48,112 +48,157 @@ public class MainFrame extends JFrame {
      */
     private void initComponents() {
         setTitle("Sistema de Gestión de Motocicletas - Usuario: " + authService.getCurrentUser().getUsername());
-        setSize(800, 600);
+        setSize(1000, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         
-        // Panel principal
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        // Panel contenedor principal con un BorderLayout global
+        JPanel contentPane = new JPanel(new BorderLayout(10, 10));
+        contentPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
-        // Panel de formulario
+        // ===== Panel superior para el formulario =====
         JPanel formPanel = new JPanel(new GridBagLayout());
-        formPanel.setBorder(BorderFactory.createTitledBorder("Datos de la Motocicleta"));
+        formPanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder("Datos de la Motocicleta"),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
         
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         
         // ID
         gbc.gridx = 0;
         gbc.gridy = 0;
-        formPanel.add(new JLabel("ID:"), gbc);
+        gbc.weightx = 0.0;
+        JLabel lblId = new JLabel("ID:");
+        lblId.setPreferredSize(new Dimension(80, 25));
+        formPanel.add(lblId, gbc);
         
         gbc.gridx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        txtId = new JTextField(10);
+        gbc.weightx = 0.5;
+        txtId = new JTextField();
         txtId.setEditable(false);
         formPanel.add(txtId, gbc);
         
         // Marca
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.NONE;
-        formPanel.add(new JLabel("Marca:"), gbc);
+        gbc.weightx = 0.0;
+        JLabel lblMarca = new JLabel("Marca:");
+        lblMarca.setPreferredSize(new Dimension(80, 25));
+        formPanel.add(lblMarca, gbc);
         
         gbc.gridx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        txtMarca = new JTextField(20);
+        gbc.weightx = 0.5;
+        txtMarca = new JTextField();
         formPanel.add(txtMarca, gbc);
         
         // Cilindraje
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.NONE;
-        formPanel.add(new JLabel("Cilindraje:"), gbc);
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.weightx = 0.0;
+        JLabel lblCilindraje = new JLabel("Cilindraje:");
+        lblCilindraje.setPreferredSize(new Dimension(80, 25));
+        formPanel.add(lblCilindraje, gbc);
         
-        gbc.gridx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        txtCilindraje = new JTextField(10);
+        gbc.gridx = 3;
+        gbc.weightx = 0.5;
+        txtCilindraje = new JTextField();
         formPanel.add(txtCilindraje, gbc);
         
         // Precio
         gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.fill = GridBagConstraints.NONE;
-        formPanel.add(new JLabel("Precio:"), gbc);
+        gbc.gridy = 2;
+        gbc.weightx = 0.0;
+        JLabel lblPrecio = new JLabel("Precio:");
+        lblPrecio.setPreferredSize(new Dimension(80, 25));
+        formPanel.add(lblPrecio, gbc);
         
         gbc.gridx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        txtPrecio = new JTextField(10);
+        gbc.weightx = 0.5;
+        txtPrecio = new JTextField();
         formPanel.add(txtPrecio, gbc);
         
         // Color
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.NONE;
-        formPanel.add(new JLabel("Color:"), gbc);
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.weightx = 0.0;
+        JLabel lblColor = new JLabel("Color:");
+        lblColor.setPreferredSize(new Dimension(80, 25));
+        formPanel.add(lblColor, gbc);
         
-        gbc.gridx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        txtColor = new JTextField(10);
+        gbc.gridx = 3;
+        gbc.weightx = 0.5;
+        txtColor = new JTextField();
         formPanel.add(txtColor, gbc);
         
-        // Panel de botones
-        JPanel buttonPanel = new JPanel(new FlowLayout());
+        // ===== Panel de botones =====
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         
         btnGuardar = new JButton("Guardar");
+        btnGuardar.setPreferredSize(new Dimension(120, 30));
         btnGuardar.addActionListener(this::onGuardarClicked);
         buttonPanel.add(btnGuardar);
         
         btnActualizar = new JButton("Actualizar");
+        btnActualizar.setPreferredSize(new Dimension(120, 30));
         btnActualizar.addActionListener(this::onActualizarClicked);
         buttonPanel.add(btnActualizar);
         
         btnEliminar = new JButton("Eliminar");
+        btnEliminar.setPreferredSize(new Dimension(120, 30));
         btnEliminar.addActionListener(this::onEliminarClicked);
         buttonPanel.add(btnEliminar);
         
         btnLimpiar = new JButton("Limpiar");
+        btnLimpiar.setPreferredSize(new Dimension(120, 30));
         btnLimpiar.addActionListener(e -> limpiarFormulario());
         buttonPanel.add(btnLimpiar);
         
         btnBuscar = new JButton("Buscar");
+        btnBuscar.setPreferredSize(new Dimension(120, 30));
         btnBuscar.addActionListener(this::onBuscarClicked);
         buttonPanel.add(btnBuscar);
         
-        // Panel de tabla
+        // ===== Panel para la tabla =====
+        JPanel tablePanel = new JPanel(new BorderLayout());
+        tablePanel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createTitledBorder("Lista de Motocicletas"),
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
+        ));
+        
+        // Configuración de la tabla
         String[] columnas = {"ID", "Marca", "Cilindraje", "Precio", "Color"};
         tableModel = new DefaultTableModel(columnas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
+            
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == 0 || columnIndex == 2) return Integer.class;
+                if (columnIndex == 3) return Double.class;
+                return String.class;
+            }
         };
         
         tableMoto = new JTable(tableModel);
-        JScrollPane scrollPane = new JScrollPane(tableMoto);
-        scrollPane.setBorder(BorderFactory.createTitledBorder("Lista de Motocicletas"));
+        tableMoto.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tableMoto.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tableMoto.getTableHeader().setReorderingAllowed(false);
         
+        // Configurar anchos de columna
+        tableMoto.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tableMoto.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tableMoto.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tableMoto.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tableMoto.getColumnModel().getColumn(4).setPreferredWidth(150);
+        
+        // Escuchar selecciones en la tabla
         tableMoto.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && tableMoto.getSelectedRow() != -1) {
                 int row = tableMoto.getSelectedRow();
@@ -161,7 +206,12 @@ public class MainFrame extends JFrame {
             }
         });
         
-        // Menú
+        // Agregar la tabla a un JScrollPane para permitir el desplazamiento
+        JScrollPane scrollPane = new JScrollPane(tableMoto);
+        scrollPane.setPreferredSize(new Dimension(800, 350));
+        tablePanel.add(scrollPane, BorderLayout.CENTER);
+        
+        // ===== Menú =====
         JMenuBar menuBar = new JMenuBar();
         
         JMenu menuArchivo = new JMenu("Archivo");
@@ -178,12 +228,13 @@ public class MainFrame extends JFrame {
         menuBar.add(menuUsuario);
         setJMenuBar(menuBar);
         
-        // Agregar componentes al panel principal
-        mainPanel.add(formPanel, BorderLayout.NORTH);
-        mainPanel.add(buttonPanel, BorderLayout.CENTER);
-        mainPanel.add(scrollPane, BorderLayout.SOUTH);
+        // ===== Añadir componentes al panel principal =====
+        contentPane.add(formPanel, BorderLayout.NORTH);
+        contentPane.add(buttonPanel, BorderLayout.CENTER);
+        contentPane.add(tablePanel, BorderLayout.SOUTH);
         
-        add(mainPanel);
+        // Establecer el panel principal
+        setContentPane(contentPane);
     }
     
     /**
@@ -430,9 +481,47 @@ public class MainFrame extends JFrame {
             return false;
         }
         
+        try {
+            int cilindraje = Integer.parseInt(txtCilindraje.getText().trim());
+            if (cilindraje <= 0) {
+                JOptionPane.showMessageDialog(this,
+                        "El cilindraje debe ser un número positivo",
+                        "Error de validación",
+                        JOptionPane.WARNING_MESSAGE);
+                txtCilindraje.requestFocus();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                    "El cilindraje debe ser un número entero",
+                    "Error de validación",
+                    JOptionPane.WARNING_MESSAGE);
+            txtCilindraje.requestFocus();
+            return false;
+        }
+        
         if (txtPrecio.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "El precio es obligatorio",
+                    "Error de validación",
+                    JOptionPane.WARNING_MESSAGE);
+            txtPrecio.requestFocus();
+            return false;
+        }
+        
+        try {
+            double precio = Double.parseDouble(txtPrecio.getText().trim());
+            if (precio <= 0) {
+                JOptionPane.showMessageDialog(this,
+                        "El precio debe ser un número positivo",
+                        "Error de validación",
+                        JOptionPane.WARNING_MESSAGE);
+                txtPrecio.requestFocus();
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this,
+                    "El precio debe ser un número decimal",
                     "Error de validación",
                     JOptionPane.WARNING_MESSAGE);
             txtPrecio.requestFocus();
